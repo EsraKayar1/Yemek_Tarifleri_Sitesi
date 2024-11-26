@@ -51,9 +51,9 @@
                              <asp:Label ID="Label1" runat="server" CssClass="auto-style12" Text='<%# Eval("YemekAdı") %>'></asp:Label>
                              </strong></td>
                          <td class="auto-style22">
-                             <%--<a href='KategoriDüzenle.aspx?Kategoriid=<%# Eval("Yemekid")%>'>--%>
+                             
                              <asp:Image ID="Image3" runat="server" Height="30px" ImageUrl="~/resimler/seçmek.jpg" Width="30px" />
-                             </a>
+                             
                          </td>
                      </tr>
                  </table>

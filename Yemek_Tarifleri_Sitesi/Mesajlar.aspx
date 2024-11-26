@@ -51,6 +51,7 @@
                              </strong></td>
                          
                          <td class="auto-style22">
+                             <a href='MesajDetay.aspx?Mesajid=<%# Eval("Mesajid")%>'>
                             <asp:Image ID="Image3" runat="server" Height="30px" ImageUrl="~/resimler/kitap.jpg" Width="42px" /></a>
                          </td>
                      </tr>
