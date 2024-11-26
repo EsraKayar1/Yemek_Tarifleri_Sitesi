@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 using System.Data.SqlClient;
 public partial class YemekDüzenle : System.Web.UI.Page
 {
-    sqlsinif bgl =new sqlsinif();
+    sqlsinif bgl = new sqlsinif();
     string id = "";
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -42,13 +42,31 @@ public partial class YemekDüzenle : System.Web.UI.Page
 
     protected void Button1_Click(object sender, EventArgs e)
     {
-        SqlCommand komut = new SqlCommand("update Tbl_Yemekler set YemekAdı=@p1,YemekMalzeme=@p2,YemekTarifi=@p3,Kategoriid=@p4 where Yemekid=@p5",bgl.baglanti());
-        komut.Parameters.AddWithValue("@p1",TextBox1.Text);
-        komut.Parameters.AddWithValue("@p2",TextBox2.Text);
-        komut.Parameters.AddWithValue("@p3",TextBox3.Text);
-        komut.Parameters.AddWithValue("@p4",DropDownList1.SelectedValue);
-        komut.Parameters.AddWithValue("@p5",id);
+        FileUpload1.SaveAs(Server.MapPath("/resimler/" + FileUpload1.FileName));
+
+        SqlCommand komut = new SqlCommand("update Tbl_Yemekler set YemekAdı=@p1,YemekMalzeme=@p2,YemekTarifi=@p3,Kategoriid=@p4,YemekResim=@p6 where Yemekid=@p5", bgl.baglanti());
+        komut.Parameters.AddWithValue("@p1", TextBox1.Text);
+        komut.Parameters.AddWithValue("@p2", TextBox2.Text);
+        komut.Parameters.AddWithValue("@p3", TextBox3.Text);
+        komut.Parameters.AddWithValue("@p4", DropDownList1.SelectedValue);
+        komut.Parameters.AddWithValue("@p6", "~/resimler/"+FileUpload1.FileName);
+        komut.Parameters.AddWithValue("@p5", id);
         komut.ExecuteNonQuery();
+        bgl.baglanti().Close();
+    }
+
+    //Tüm Yemeklerin Durumunu False Yaptık!!
+    protected void Button2_Click1(object sender, EventArgs e)
+    {
+        SqlCommand komut = new SqlCommand("Update Tbl_Yemekler set durum=0", bgl.baglanti());
+        komut.ExecuteNonQuery();
+        bgl.baglanti().Close();
+
+
+        //Tüm Yemeklerin id ye göre True Yapılacak
+        SqlCommand komut1 = new SqlCommand("Update Tbl_Yemekler set durum=1 where yemekid=@p1", bgl.baglanti());
+        komut1.Parameters.AddWithValue("@p1",id);
+        komut1.ExecuteNonQuery();
         bgl.baglanti().Close();
     }
 }
